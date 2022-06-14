@@ -1,5 +1,7 @@
 const PersonsRepository = require('../repositories/PersonsRepository');
 
+const AppError = require('../../../shared/errors/AppError');
+
 const personsRepository = new PersonsRepository();
 
 module.exports = {
@@ -7,23 +9,23 @@ module.exports = {
     const { name, email, whatsapp, password, cep } = request.body;
 
     if (!name) {
-      throw new Error('name not found');
+      throw new AppError('name not found');
     }
 
     if (!email) {
-      throw new Error('email not found');
+      throw new AppError('email not found');
     }
 
     if (!whatsapp) {
-      throw new Error('whatsapp not found');
+      throw new AppError('whatsapp not found');
     }
 
     if (!password) {
-      throw new Error('password not found');
+      throw new AppError('password not found');
     }
 
     if (!cep) {
-      throw new Error('cep not found');
+      throw new AppError('cep not found');
     }
 
     next();
@@ -32,9 +34,9 @@ module.exports = {
   async verifyIfEmailAlreadyExists(request, response, next) {
     const { email } = request.body;
 
-    const emailExists = await personsRepository.checkPersonEmail(email);
+    const emailExists = await personsRepository.checkPersonsEmail(email);
 
-    if (!emailExists) throw new Error('email already exists');
+    if (emailExists) throw new Error('email already exists');
 
     next();
   },

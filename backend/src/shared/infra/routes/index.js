@@ -6,6 +6,8 @@ const petsRoutes = require('../../../modules/pets/infra/routes/pets.routes');
 
 const transactionsRoutes = require('../../../modules/transactions/infra/routes/transactions.routes');
 
+const racesRoutes = require('../../../modules/races/infra/routes/races.routes');
+
 const routes = Router();
 
 routes.use('/pets', petsRoutes);
@@ -13,5 +15,7 @@ routes.use('/pets', petsRoutes);
 routes.use('/persons', personsRoutes);
 
 routes.use('/transactions', transactionsRoutes);
+
+routes.use('/races', racesRoutes);
 
 module.exports = routes;

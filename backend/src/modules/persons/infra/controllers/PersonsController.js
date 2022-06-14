@@ -18,7 +18,7 @@ class PersonsController {
       cep,
     });
 
-    return response.json({ create: true });
+    return response.json({ person });
   }
 
   async getAllPersons(request, response) {
