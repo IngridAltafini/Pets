@@ -1,5 +1,7 @@
 const { Router } = require('express');
 
+const { celebrate, Segments, Joi } = require('celebrate');
+
 const PersonsController = require('../controllers/PersonsController');
 
 const personsMiddleware = require('../../middleware/persons.middleware');
@@ -11,7 +13,15 @@ personsRoutes.get('/', personsController.getAllPersons);
 
 personsRoutes.post(
   '/',
-  personsMiddleware.verifyPayloadForCreation,
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required('name is required'),
+      email: Joi.string().email().required('email is required'),
+      whatsapp: Joi.string().required('whatsapp is required'),
+      cep: Joi.string().required('cep is required'),
+      password: Joi.string().min(6).required('password is required'),
+    },
+  }),
   personsMiddleware.verifyIfEmailAlreadyExists,
   personsController.createPersons
 );

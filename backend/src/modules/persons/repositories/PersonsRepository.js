@@ -2,7 +2,7 @@ const connection = require('../../../shared/database/connections');
 
 class PersonsRepository {
   async checkPersonsEmail(email) {
-    return connection('persons').where({ email });
+    return connection('persons').where({ email }).first();
   }
 
   async createPerson(payload) {
